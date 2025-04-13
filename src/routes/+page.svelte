@@ -220,22 +220,6 @@ $effect(() => {
     background-color: color-mix(in srgb, black 35%, transparent 65%);
     backdrop-filter: blur(1.5px);
   }
-  .candies div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--pico-spacing);
-
-    @media (max-width: 400px) {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    p {
-      margin: 0;
-    }
-  }
 
   h1 {
     text-align: center;
