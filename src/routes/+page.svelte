@@ -1,25 +1,35 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
+  let city = "";
+  let weather = null;
+  let units = "metric"; // default: Celsius
+  let unitLabel = "°C"; // temperature unit symbol
 
-  interface Props {
-    data: PageData;
+  async function getWeather() {
+    if (!city) return;
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=65a2c45c1ef7bdfc733d2ed2058ce1a0&units=${units}`
+    );
+    const data = await res.json();
+    weather = data;
   }
 
-  let { data }: Props = $props();
-  let candies = $state(data.candies); // grab the initial value from the server
-  let pending = $state(0); // number of pending requests
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      getWeather();
+    }
+  }
 
-  async function addCandy() {
-    // Update count locally.
-    candies++;
+  function toggleUnit() {
+    if (units === "metric") {
+      units = "imperial";
+      unitLabel = "°F";
+    } else {
+      units = "metric";
+      unitLabel = "°C";
+    }
 
-    // Update count on the server.
-    pending++;
-    await fetch("/api/candies", {
-      method: "POST",
-      body: JSON.stringify({ candies: 1 }),
-    });
-    pending--;
+    // Refresh weather after changing unit
+    if (city) getWeather();
   }
 </script>
 
