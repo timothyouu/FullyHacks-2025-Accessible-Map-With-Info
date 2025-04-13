@@ -52,7 +52,7 @@
       } else {
         places = placeData.features.map(p => ({
           name: p.properties.name,
-          address: p.properties.address_line1
+          address: p.properties.address_line2 || "Unknown Address"
         }));
       }
     } catch (e) {
