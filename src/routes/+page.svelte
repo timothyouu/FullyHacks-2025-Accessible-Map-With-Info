@@ -7,6 +7,23 @@
     text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
   );
 }
+  let marsData = null;
+  let loading = true;
+  let error = null;
+
+  import { onMount } from 'svelte';
+
+  onMount(async () => {
+    try {
+      const res = await fetch('https://api.le-systeme-solaire.net/rest/bodies/mars');
+      if (!res.ok) throw new Error('API 요청 실패');
+      marsData = await res.json();
+    } catch (err) {
+      error = err.message;
+    } finally {
+      loading = false;
+    }
+  });
 
   let city = $state("");
   let weather = $state(null);
@@ -98,6 +115,17 @@ $effect(() => {
                   : [];
 });
 </script>
+
+{#if loading}
+  <p>🚀 Loading Mars data...</p>
+{:else if error}
+  <p>❌ Error: {error}</p>
+{:else}
+  <h2>🪐 {marsData.englishName}</h2>
+  <p><strong>Gravity:</strong> {marsData.gravity} m/s²</p>
+  <p><strong>Density:</strong> {marsData.density} g/cm³</p>
+  <p><strong>Mass:</strong> {marsData.mass.massValue} × 10^{marsData.mass.massExponent} kg</p>
+{/if}
 
 {#if timeInfo || error}
 <div class="message-block">
