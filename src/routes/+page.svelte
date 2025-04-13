@@ -10,6 +10,15 @@
   const TIMEZONE_API_KEY = "0TDL2BXGDR6F";
   const GEOAPIFY_KEY = "7b589f5086bf4635b6193fa4d54ede4f";
 
+  function reset() {
+  city = "";
+  weather = null;
+  timeInfo = null;
+  timeDifference = null;
+  places = [];
+  error = "";
+  }
+
   async function fetchAllCityInfo() {
     error = "";
     weather = null;
@@ -60,7 +69,8 @@
     }
   }
 </script>
-
+{#if timeInfo || error}
+<div class="message-block">
 {#if weather}
   <p><strong>Weather in {weather.name}:</strong> {weather.main.temp}°C</p>
 {/if}
@@ -89,6 +99,9 @@
 
 {#if error}
   <p style="color: red;">{error}</p>
+{/if}
+<button class="resetButton" onclick={reset}>←</button>
+</div>
 {/if}
 
 <svelte:head>
@@ -183,6 +196,31 @@
 
   .find {
     margin-top: 30px;
+  }
+
+  .message-block {
+  margin-top: 20px;
+  height: 75vh;
+  width: 80vw;
+  top: 12.5vh;
+  left: 10vw;
+  overflow-y: auto;
+  background-color: color-mix(in srgb, black 95%, transparent 5%);
+  position: fixed;
+  z-index: 10;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding: 1rem;
+  }
+  .resetButton {
+    background-color: #9f1b06;
+    color: black;
+    border: 1px;
+    padding: 10px 20px;
+    font-size: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 </style>
 
