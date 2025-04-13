@@ -1,10 +1,19 @@
 <script>
-  let city = "";
-  let weather = null;
-  let timeInfo = null;
-  let timeDifference = null;
-  let places = [];
-  let error = "";
+  import CitiesFinder from '$lib/cities';
+
+  function toTitleCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+  );
+}
+
+  let city = $state("");
+  let weather = $state(null);
+  let timeInfo = $state(null);
+  let timeDifference = $state(null);
+  let places = $state([]);
+  let error = $state("");
 
   const WEATHER_API_KEY = "65a2c45c1ef7bdfc733d2ed2058ce1a0";
   const TIMEZONE_API_KEY = "0TDL2BXGDR6F";
@@ -82,8 +91,14 @@
       error = e.message || "Failed to load data.";
     }
   }
-
+// const suggestions = ["Los Angeles", "Whittier"];
+let filtered = $state([]);
+$effect(() => {
+  filtered = city ? CitiesFinder.find(city.toLowerCase()).map((c) => toTitleCase(c)) || []
+                  : [];
+});
 </script>
+
 {#if timeInfo || error}
 <div class="message-block">
 {#if weather}
@@ -138,9 +153,20 @@
 <h1>Where In The World</h1>
 <label for="userInput"> Where do you want to go?</label>
 <div class="input-row">
-<input type= "text" id="userInput" name="userInput" placeholder="Type a city..." bind:value={city}/>
-<button class="find hoverGrow" onclick={fetchAllCityInfo} > Find!</button>
+  <div class="suggestionsandtext">
+    <input type= "text" id="userInput" name="userInput" placeholder="Type a city..." bind:value={city}/>
+    {#if filtered.length > 0}
+      <ul class="suggestions">
+        {#each filtered as c}
+          <li onclick={() => city = c}>{c}</li>
+        {/each}
+      </ul>
+    {/if}
+  </div>
+  <button class="find hoverGrow" onclick={fetchAllCityInfo} > Find!</button>
 </div>
+
+
 
 <footer class="centered footer-bot">
   <hr />
@@ -206,7 +232,8 @@
 
   .input-row {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    align-items: start;
     gap: 20px;
     justify-content: center;
     margin-top: -50px;
@@ -219,7 +246,7 @@
   }
 
   .find {
-    margin-top: 30px;
+    margin-top: 42.5px;
   }
 
   .message-block {
@@ -247,19 +274,39 @@
     transition: background-color 0.3s ease;
   }
   .temp {
-    margin-left:70vw;
+    margin-left: 70vw;
     height: 45px;
     background-color: rgb(79, 79, 225);
+    margin-top: 80px;
   }
   .hoverGrow {
     border-radius: 6px;
     cursor: pointer;
     transition: transform 0.3s ease;
   }
-
-.hoverGrow:hover{
+  .hoverGrow:hover{
   transform: scale(1.1);
 }
+  .suggestionsandtext {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+  }
+  .suggestions {
+    width: 23.75rem;
+    max-height: 20rem;
+    overflow-y: auto;
+    border: 0.5px solid gray;
+  }
+  .suggestions > li {
+    cursor: grab;
+    list-style-type: none;
+    transition: transform 0.3s ease;
+  }
+  .suggestions > li:hover {
+    font-weight: bold;
+  }
 </style>
 
 
