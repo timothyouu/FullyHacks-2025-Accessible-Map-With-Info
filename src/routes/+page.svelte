@@ -286,6 +286,7 @@ $effect(() => {
     max-height: 20rem;
     overflow-y: auto;
     border: 0.5px solid gray;
+    background-color: color-mix(in srgb, black 95%, transparent 95%);
   }
   .suggestions > li {
     cursor: grab;
