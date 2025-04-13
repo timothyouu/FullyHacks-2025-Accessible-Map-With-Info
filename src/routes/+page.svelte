@@ -151,7 +151,7 @@ $effect(() => {
 <img class="bgimage" src="/images/world.png" alt="world"/>
 <div class="darkenimage"></div>
 
-<a href="/mars">
+<a class= "hoverGrow" href="/mars">
   <img src="/images/mars.png" alt="Mars" />
 </a>
 
@@ -247,11 +247,11 @@ $effect(() => {
   #userInput {
     width: 500px;
     height: 50px;
-    margin-top: 50px;
+    margin-top: 70px;
   }
 
   .find {
-    margin-top: 42.5px;
+    margin-top: 62.5px;
   }
 
   .message-block {
@@ -311,6 +311,13 @@ $effect(() => {
   }
   .suggestions > li:hover {
     font-weight: bold;
+  }
+
+  a img {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    margin-top: 70px;
   }
 </style>
 
