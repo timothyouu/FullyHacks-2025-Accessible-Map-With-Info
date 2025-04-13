@@ -68,6 +68,17 @@
       error = e.message || "Failed to load data.";
     }
   }
+  let isCelsius = (true);
+  let temperature = ("");
+
+  function toggleUnit() {
+    isCelsius = !isCelsius;
+    if (isCelsius) {
+      temperature = "25°C";
+    } else {
+      temperature = "77°F";
+    }
+  }
 </script>
 {#if timeInfo || error}
 <div class="message-block">
@@ -102,6 +113,16 @@
 {/if}
 <button class="resetButton" onclick={reset}>←</button>
 </div>
+<nav>
+  <ul class="right">
+      <li>
+        <button class="temp" onclick={toggleUnit}>
+          Switch to {isCelsius ? "°F" : "°C"}
+          <p>Temperature: {temperature}</p>
+        </button>
+      </li>
+  </ul>
+</nav>
 {/if}
 
 <svelte:head>
@@ -221,6 +242,10 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+  }
+  .temp {
+    margin-left:70vw;
+    height: 80px;
   }
 </style>
 
