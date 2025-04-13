@@ -61,13 +61,6 @@
   }
 </script>
 
-<input
-  bind:value={city}
-  placeholder="Enter city name (e.g., Seoul, Paris, Tokyo)"
-  on:keydown={(e) => e.key === 'Enter' && fetchAllCityInfo()}
-/>
-<button on:click={fetchAllCityInfo}>Search</button>
-
 {#if weather}
   <p><strong>Weather in {weather.name}:</strong> {weather.main.temp}°C</p>
 {/if}
@@ -95,7 +88,7 @@
 {/if}
 
 {#if error}
-  <p style="color: red;">⚠️ {error}</p>
+  <p style="color: red;">{error}</p>
 {/if}
 
 <svelte:head>
@@ -108,8 +101,8 @@
 <h1>Where In The World</h1>
 <label for="userInput"> Where do you want to go?</label>
 <div class="input-row">
-<input type= "text" id="userInput" name="userInput" placeholder="Type a city..."/>
-<button class="find"> Find!</button>
+<input type= "text" id="userInput" name="userInput" placeholder="Type a city..." bind:value={city}/>
+<button class="find" onclick={fetchAllCityInfo} > Find!</button>
 </div>
 
 <footer class="centered footer-bot">
