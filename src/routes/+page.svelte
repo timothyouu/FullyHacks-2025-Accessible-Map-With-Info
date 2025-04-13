@@ -18,7 +18,20 @@
   places = [];
   error = "";
   }
+  let temperature = ("");
+  let isCelsius = (true);
+ 
 
+ function toggleUnit() {
+   isCelsius = !isCelsius;
+   if (isCelsius) {
+     temperature = weather.main.temp + "°C";
+     return temperature;
+   } else {
+     temperature = ((weather.main.temp*9/5)+32).toFixed(2)  + "°F";
+     return temperature;
+   }
+ }
   async function fetchAllCityInfo() {
     error = "";
     weather = null;
@@ -34,6 +47,7 @@
       const weatherData = await weatherRes.json();
       if (weatherData.cod !== 200) throw new Error("Weather not found");
       weather = weatherData;
+      toggleUnit();
 
       // 2. Get lat/lon from city
       const geoRes = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${WEATHER_API_KEY}`);
@@ -68,22 +82,12 @@
       error = e.message || "Failed to load data.";
     }
   }
-  let isCelsius = (true);
-  let temperature = ("");
 
-  function toggleUnit() {
-    isCelsius = !isCelsius;
-    if (isCelsius) {
-      temperature = "25°C";
-    } else {
-      temperature = "77°F";
-    }
-  }
 </script>
 {#if timeInfo || error}
 <div class="message-block">
 {#if weather}
-  <p><strong>Weather in {weather.name}:</strong> {weather.main.temp}°C</p>
+  <p><strong>Temperature in {weather.name}:</strong> {temperature}</p>
 {/if}
 
 {#if timeInfo}
@@ -111,14 +115,13 @@
 {#if error}
   <p style="color: red;">{error}</p>
 {/if}
-<button class="resetButton" onclick={reset}>←</button>
+<button class="resetButton hoverGrow" onclick={reset}>←</button>
 </div>
 <nav>
   <ul class="right">
       <li>
-        <button class="temp" onclick={toggleUnit}>
+        <button class="temp hoverGrow" onclick={toggleUnit}>
           Switch to {isCelsius ? "°F" : "°C"}
-          <p>Temperature: {temperature}</p>
         </button>
       </li>
   </ul>
@@ -136,7 +139,7 @@
 <label for="userInput"> Where do you want to go?</label>
 <div class="input-row">
 <input type= "text" id="userInput" name="userInput" placeholder="Type a city..." bind:value={city}/>
-<button class="find" onclick={fetchAllCityInfo} > Find!</button>
+<button class="find hoverGrow" onclick={fetchAllCityInfo} > Find!</button>
 </div>
 
 <footer class="centered footer-bot">
@@ -245,8 +248,18 @@
   }
   .temp {
     margin-left:70vw;
-    height: 80px;
+    height: 45px;
+    background-color: rgb(79, 79, 225);
   }
+  .hoverGrow {
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+.hoverGrow:hover{
+  transform: scale(1.1);
+}
 </style>
 
 
