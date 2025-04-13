@@ -143,12 +143,17 @@ $effect(() => {
 </nav>
 {/if}
 
+
 <svelte:head>
   <title>Home</title>
 </svelte:head>
 
 <img class="bgimage" src="/images/world.png" alt="world"/>
 <div class="darkenimage"></div>
+
+<a href="/mars">
+  <img src="/images/mars.png" alt="Mars" />
+</a>
 
 <h1>Where In The World</h1>
 <label for="userInput"> Where do you want to go?</label>
