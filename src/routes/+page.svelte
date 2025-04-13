@@ -111,9 +111,9 @@
 <input type= "text" id="userInput" name="userInput" placeholder="Type a city..."/>
 <button class="find"> Find!</button>
 </div>
-<hr />
 
-<footer class="centered">
+<footer class="centered footer-bot">
+  <hr />
   <p> By: Hannah Park, Lana Vu, Timothy Ou </p>
 </footer>
 
@@ -125,6 +125,13 @@
     position: fixed;
     top: 0;
     left: 0;
+  }
+
+  .footer-bot{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%,0px);
   }
   .darkenimage {
     width: 100vw;
