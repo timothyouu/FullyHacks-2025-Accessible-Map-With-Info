@@ -7,24 +7,6 @@
     text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
   );
 }
- /* let marsData = null;
-  let loading = true;
-  let error_mars = null;
-
-  import { onMount } from 'svelte';
-
-  onMount(async () => {
-    try {
-      const res = await fetch('https://api.le-systeme-solaire.net/rest/bodies/mars');
-      if (!res.ok) throw new Error('API error');
-      marsData = await res.json();
-    } catch (err) {
-      error_mars = err.message;
-    } finally {
-      loading = false;
-    }
-  });
-*/
   let city = $state("");
   let weather = $state(null);
   let timeInfo = $state(null);
@@ -44,8 +26,8 @@
   places = [];
   error = "";
   }
-  let temperature = ("");
-  let isCelsius = (true);
+  let temperature = $state("");
+  let isCelsius = $state(true);
  
 
  function toggleUnit() {
