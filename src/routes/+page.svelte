@@ -183,7 +183,7 @@ $effect(() => {
   <img src="/images/mars.png" alt="Mars" />
 </a>
 
-<h1>Where In The World</h1>
+
 <label for="userInput"> Where do you want to go?</label>
 <div class="input-row">
   <div class="suggestionsandtext">
@@ -261,6 +261,7 @@ $effect(() => {
     align-items: center;
     gap: 20px;
     justify-content: center;
+    margin-top: 75px;
   }
 
   .input-row {
