@@ -27,25 +27,16 @@
   <title>Home</title>
 </svelte:head>
 
-<h1>Hello!</h1>
-<h3>Welcome to FullyHacks 2024</h3>
-
-<article class="candies">
-  <header>
-    <h4>🍭 Candy Shop</h4>
-  </header>
-
-  <div>
-    <button class:odd={candies % 2} onclick={() => addCandy()}> Click me </button>
-    <p>🍬 Candies: {candies}</p>
-    <p>⌛ Pending requests: {pending}</p>
-  </div>
-</article>
-
+<h1>Where In The World</h1>
+<div class="input-row">
+<label for="userInput"> Where do you want to go?</label>
+<input type= "text" id="userInput" name="userInput" placeholder="Type a city..."/>
+<button class="find"> Find!</button>
+</div>
 <hr />
 
 <footer class="centered">
-  <p>🔹 California State University, Fullerton 🔸</p>
+  <p> By: Hannah Park, Lana Vu, Timothy Ou </p>
 </footer>
 
 <style lang="scss">
@@ -64,10 +55,30 @@
     p {
       margin: 0;
     }
+  }
 
-    button.odd {
-      background-color: var(--pico-secondary);
-      border-color: var(--pico-secondary);
-    }
+  h1 {
+    text-align: center;
+    margin-bottom: 100px;
+  }
+
+  label {
+    text-align: left;
+    font-size:1.2rem;
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  #userInput {
+    width: 500px;
+  }
+
+  .find {
+    margin-top: -20px;
   }
 </style>
