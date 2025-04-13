@@ -1,31 +1,26 @@
 <script>
-  import Icon from "$lib/components/Icon.svelte";
-  import { page } from "$app/state";
+let isCelsius = $state(true);
+let temperature = $state("");
 
-  // List of navigation items, add more here if you make more pages :D
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Content", href: "/content" },
-  ];
+  function toggleUnit() {
+    isCelsius = !isCelsius;
+    if (isCelsius) {
+      temperature = "25°C";
+    } else {
+      temperature = "77°F";
+    }
+  }
+
 </script>
 
 <nav>
-  <ul class="left">
-    <li>
-      <a href="/" class:active={page.url.pathname == "/"}>
-        <Icon icon="home" />
-      </a>
-    </li>
-  </ul>
-
   <ul class="right">
-    {#each navItems.filter((item) => item.href != "/") as item}
       <li>
-        <a href={item.href} class:active={page.url.pathname == item.href}>
-          {item.label}
-        </a>
+        <button onclick={toggleUnit}>
+          Switch to {isCelsius ? "°F" : "°C"}
+          <p>Temperature: {temperature}</p>
+        </button>
       </li>
-    {/each}
   </ul>
 </nav>
 
@@ -37,5 +32,9 @@
   a[href].active {
     color: var(--pico-primary);
     font-weight: bold;
+  }
+  button {
+    margin-left:70vw;
+    height: 80px;
   }
 </style>
