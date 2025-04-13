@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   let city = "";
   let weather = null;
   let units = "metric"; // default: Celsius
@@ -37,9 +37,12 @@
   <title>Home</title>
 </svelte:head>
 
+<img class="bgimage" src="/images/world.png" alt="world"/>
+<div class="darkenimage"></div>
+
 <h1>Where In The World</h1>
-<div class="input-row">
 <label for="userInput"> Where do you want to go?</label>
+<div class="input-row">
 <input type= "text" id="userInput" name="userInput" placeholder="Type a city..."/>
 <button class="find"> Find!</button>
 </div>
@@ -50,6 +53,24 @@
 </footer>
 
 <style lang="scss">
+  .bgimage {
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .darkenimage {
+    width: 100vw;
+    height: 100vh;
+    z-index: -5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: color-mix(in srgb, black 35%, transparent 65%);
+    backdrop-filter: blur(1.5px);
+  }
   .candies div {
     display: flex;
     flex-direction: row;
@@ -70,11 +91,15 @@
   h1 {
     text-align: center;
     margin-bottom: 100px;
+    margin-top: -50px;
   }
 
   label {
-    text-align: left;
-    font-size:1.2rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
   }
 
   .input-row {
@@ -82,13 +107,16 @@
     align-items: center;
     gap: 20px;
     justify-content: center;
+    margin-top: -50px;
   }
 
   #userInput {
     width: 500px;
+    height: 50px;
+    margin-top: 50px;
   }
 
   .find {
-    margin-top: -20px;
+    margin-top: 30px;
   }
 </style>
